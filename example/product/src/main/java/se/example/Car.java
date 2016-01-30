@@ -9,7 +9,8 @@ import java.util.Date;
 @SOAPBinding(style = Style.DOCUMENT)
 @WebService
 public class Car {
-    private Integer fuelLevel;
+    private static Integer fuelLevel;
+    private static Integer magicMultiplierRatio = 5;
 
     public Car() {
         fuelLevel = 0;
@@ -19,7 +20,7 @@ public class Car {
     public void addFuel(int addedAmount) {
         String message = "adding " + addedAmount;
         usageLog(message);
-        fuelLevel = fuelLevel + addedAmount;
+        fuelLevel = fuelLevel + (addedAmount * magicMultiplierRatio);
     }
 
     @WebMethod
@@ -30,13 +31,13 @@ public class Car {
     }
 
     @WebMethod
-    public void emptyFuel() {
+    public  void emptyFuel() {
         String message = "Emptying fuel tank";
         usageLog(message);
         fuelLevel = 0;
     }
 
-    private void usageLog(String message) {
+    private static void usageLog(String message) {
         Date now = new Date();
         System.out.println(now + " " + message);
     }
